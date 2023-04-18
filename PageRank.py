@@ -85,7 +85,7 @@ if __name__ == "__main__":
     id_index_dict = load_data(data_path, sparse_matrix_path, r_old_path)
     index_id_dict = {v: k for k, v in id_index_dict.items()}
 
-    pr = page_rank(len(id_index_dict))
+    pr = page_rank(len(id_index_dict), iters=10)
 
     id_rank = {}
     for index, v in enumerate(pr):
