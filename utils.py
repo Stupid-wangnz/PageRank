@@ -2,11 +2,8 @@ import numpy as np
 import pandas as pd
 from collections import defaultdict
 
-data_path = "./Data.txt"
-sparse_matrix_path = "./output/matrix.txt"
 
-
-def load_data():
+def load_data(data_path, sparse_matrix_path, r_old_path):
     """
     read edges from file
     :return:sparse matrix, and the node set
@@ -28,11 +25,11 @@ def load_data():
             link_matrix[s][0] += 1
             link_matrix[s][1].append(t)
     with open(sparse_matrix_path, 'w') as f:
-        for s, (degree, ts) in link_matrix.items():
+        for s, (degree, ts) in sorted(link_matrix.items(), key=lambda x: x[0]):
             f.write("{} {} {}\n".format(s, degree, ' '.join(str(x) for x in sorted(ts))))
+    num = len(nodes)
+    with open(r_old_path, 'w') as f:
+        for i in range(num):
+            f.write("{}\n".format(1. / num))
     return id_index_dict
 
-
-if __name__ == "__main__":
-    nodes = load_data()
-    print(len(nodes))
