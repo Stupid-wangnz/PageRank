@@ -34,8 +34,9 @@ def page_rank_block_stripe(node_num, iters=100, beta=0.85, epsilon=1e-6, dist='l
             # we can store this in RAM, init the r_new as a dict
             v = (1. - beta) / node_num
             r_new = {k: v for k in node_in_block}
+            stripe_path = sparse_matrix_path + '_' + str(i)
             # dot to calculate new rank
-            with open(sparse_matrix_path, 'r') as matrix_f, open(r_old_path, 'r') as r_old_f:
+            with open(stripe_path, 'r') as matrix_f, open(r_old_path, 'r') as r_old_f:
                 r_index = 0
                 for line in matrix_f:
                     m = [int(x) for x in line.split()]
